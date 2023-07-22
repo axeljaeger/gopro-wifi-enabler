@@ -13,7 +13,7 @@ jobs:
         run: | 
           npm ci
           npm run build
-      - run: echo "🍏 This job's status is ${{ job.status }}."  
+      - run: echo "Build status is ${{ job.status }}."  
       - name: Fix permissions
         run: |
           chmod -c -R +rX "_site/" | while read line; do
