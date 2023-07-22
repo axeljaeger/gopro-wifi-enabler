@@ -12,6 +12,7 @@ jobs:
       - name: Build react app
         run: | 
           npm ci
+          export PUBLIC_URL=https://axeljaeger.github.io/goprowifienabler/
           npm run build
       - run: echo "Build status is ${{ job.status }}."  
       - name: Fix permissions
