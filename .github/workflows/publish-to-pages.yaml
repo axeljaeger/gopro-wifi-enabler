@@ -7,14 +7,11 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
-      - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
-      - run: echo "🖥️ The workflow is now ready to test your code on the runner."
       - name: Build react app
         run: | 
           npm ci
           export PUBLIC_URL=https://axeljaeger.github.io/goprowifienabler/
           npm run build
-      - run: echo "Build status is ${{ job.status }}."  
       - name: Fix permissions
         run: |
           chmod -c -R +rX "_site/" | while read line; do
@@ -25,7 +22,6 @@ jobs:
         with:
           path: "build"
 
-        
   deploy:
     # Add a dependency to the build job
     needs: build
