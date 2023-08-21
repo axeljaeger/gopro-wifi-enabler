@@ -42,3 +42,11 @@ td {
   text-align: left;
 }
 
+span.selected {
+  font-weight: bold;
+}
+
+span.unselected {
+  font-weight: normal;
+  cursor: pointer;
+}

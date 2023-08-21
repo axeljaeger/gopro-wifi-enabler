@@ -1,9 +1,9 @@
 import { Component } from 'react';
 import { GPBLE_CONSTANTS } from './gopro-bluetooth';
 
-import QRCode from "react-qr-code";
-
 import './App.css';
+import Greeter from './Greeter';
+import CameraDisplay from './CameraDisplay';
 
 interface Props {
 
@@ -11,10 +11,9 @@ interface Props {
 
 interface State {
   btConnected: boolean;
-  wifiApActive: number;
+  wifiApActive: boolean;
   wifiAp: string;
   wifiPw: string;
-  wifiQrCode: string;
   device: BluetoothDevice | null;
   commandCharacteristic: BluetoothRemoteGATTCharacteristic | null;
 }
@@ -25,16 +24,13 @@ class App extends Component<Props, State> {
 
     this.state = {
       btConnected: false,
-      wifiApActive: 0,
+      wifiApActive: false,
       wifiAp: '',
       wifiPw: '',
-      wifiQrCode: '',
       device: null,
       commandCharacteristic: null,
     }
   }
-
-  componentDidMount = async() => { }
 
   connectBt = async () => {
     const device : BluetoothDevice = await navigator.bluetooth.requestDevice({ 
@@ -55,12 +51,11 @@ class App extends Component<Props, State> {
       device
     })
 
-    device.addEventListener('gattserverdisconnected', (event) => {
+    device.addEventListener('gattserverdisconnected', () => {
       this.setState({
         btConnected: false
       })
     });
-
   
     try {      
         const gattServer = device.gatt;
@@ -90,8 +85,9 @@ class App extends Component<Props, State> {
           apStateCharacteristic.addEventListener('characteristicvaluechanged', (event : any) => {
             const data : DataView = event.target?.value;
             const enumValue = data.getInt8(0);
+            console.log(enumValue);
             this.setState({
-              wifiApActive: enumValue
+              wifiApActive: enumValue !== 0 ? true : false
             })
           });
 
@@ -101,10 +97,7 @@ class App extends Component<Props, State> {
           this.setState({
             wifiAp,
             wifiPw,
-            wifiQrCode: `WIFI:T:WPA;S:${wifiAp};P:${wifiPw};;`
           });
-
-          console.log("WIFI QR CODE: ", this.state.wifiQrCode);
         } else {
           console.log("GATT Server is null");
         }
@@ -113,47 +106,31 @@ class App extends Component<Props, State> {
     }
   }
 
-  disconnectBt = async () => { 
+  disconnectBt = () => { 
     this.state.device?.gatt?.disconnect();
   }
 
   setWifiEnabled = async (enabled : boolean) => {
     if (this.state.commandCharacteristic) {
+      console.log(`Enable Wifi ${enabled}`);
       await this.state.commandCharacteristic.writeValue(enabled ? GPBLE_CONSTANTS.COMMAND_AP_ON : GPBLE_CONSTANTS.COMMAND_AP_OFF);
     }
   }
 
-
   render = () =>  {
-    return (
-      <div className="App">
-      <h1>GoPro WiFi Enabler</h1>
-      <div>Not an offering from GoPro</div>
-      <p><a href="https://gopro.github.io/OpenGoPro/ble_2_0">GoPro BLE API</a></p>
-      <button onClick={this.connectBt}>Connect to camera</button> <button onClick={this.disconnectBt}>Disconnect</button>
-      <h2>{ this.state.btConnected ? "Connected camera:" : "Not connected to camera" }</h2>
-      <table>
-        <tbody>
-      <tr>
-      <th style={{color: this.state.btConnected ? 'black' : 'gray'}}>AP State</th><td>{this.state.wifiApActive}</td>
-      </tr>
-      <tr>
-      <th><button onClick={ () => this.setWifiEnabled(true)} disabled={!this.state.btConnected}>Enable Wifi</button></th>
-      <td><button onClick={ () => this.setWifiEnabled(false)} disabled={!this.state.btConnected}>Disable Wifi</button></td>
-      </tr>
-      <tr>
-      <th style={{color: this.state.btConnected ? 'black' : 'gray'}}>AP SSID</th><td>{this.state.wifiAp}</td>
-      </tr>
-      <tr>
-      <th style={{color: this.state.btConnected ? 'black' : 'gray'}}>AP Password</th><td>{this.state.wifiPw}</td>
-      </tr>
-      </tbody>
-      </table>
-      <div >
-        <QRCode value={this.state.wifiQrCode} fgColor={this.state.btConnected ? '#000000' : '#eeeeee'}/>
-      </div>
-      </div>
-    );
+    if (this.state.btConnected) {
+      return (
+        <CameraDisplay 
+          onDisconnect={this.disconnectBt} 
+          onWifiEnabledChange={this.setWifiEnabled}
+          wifiAp={this.state.wifiAp}
+          wifiApActive={this.state.wifiApActive}
+          wifiPw={this.state.wifiPw}          
+          />
+      )
+    } else {
+      return <Greeter onConnect={this.connectBt} />;
+    }
   }
 }
 
