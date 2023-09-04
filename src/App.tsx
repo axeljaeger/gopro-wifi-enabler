@@ -10,6 +10,7 @@ interface Props {
 }
 
 interface State {
+  connecting: boolean;
   btConnected: boolean;
   wifiApActive: boolean;
   wifiAp: string;
@@ -23,6 +24,7 @@ class App extends Component<Props, State> {
     super(props);
 
     this.state = {
+      connecting: false,
       btConnected: false,
       wifiApActive: false,
       wifiAp: '',
@@ -33,76 +35,79 @@ class App extends Component<Props, State> {
   }
 
   connectBt = async () => {
-    const device : BluetoothDevice = await navigator.bluetooth.requestDevice({ 
-      filters: [{
-      manufacturerData: [{
-        companyIdentifier: GPBLE_CONSTANTS.COMPANY_IDENTIFIER,
-      }]
-    }],
-    optionalServices: [
-      GPBLE_CONSTANTS.CONTROL_QUERY_SERVICE,
-      GPBLE_CONSTANTS.CAMERA_MANAGEMENT_SERVICE,
-      GPBLE_CONSTANTS.WIFI_AP_SERVICE
-    ]
-    });
+    this.setState({connecting: true})
+    try {
+      const device : BluetoothDevice = await navigator.bluetooth.requestDevice({ 
+        filters: [{
+        manufacturerData: [{
+          companyIdentifier: GPBLE_CONSTANTS.COMPANY_IDENTIFIER,
+        }]
+      }],
+      optionalServices: [
+        GPBLE_CONSTANTS.CONTROL_QUERY_SERVICE,
+        GPBLE_CONSTANTS.CAMERA_MANAGEMENT_SERVICE,
+        GPBLE_CONSTANTS.WIFI_AP_SERVICE
+      ]
+      });
+      const gattServer = device.gatt;
+      if (gattServer) {
+        const server = await gattServer.connect(); 
 
-    this.setState({
-      btConnected: true,
-      device
-    })
+        const cqService = await server.getPrimaryService(GPBLE_CONSTANTS.CONTROL_QUERY_SERVICE);
+        const commandCharacteristic = await cqService.getCharacteristic(GPBLE_CONSTANTS.COMMAND);          
+        this.setState({
+          commandCharacteristic
+        });
 
-    device.addEventListener('gattserverdisconnected', () => {
+        // READ AP
+        const apService = await server.getPrimaryService(GPBLE_CONSTANTS.WIFI_AP_SERVICE);
+        const apCharacteristic = await apService.getCharacteristic(GPBLE_CONSTANTS.WIFI_AP_SSID_CHARACTERISTIC);
+        const apResult = await apCharacteristic.readValue();
+        
+        const textDecoder = new TextDecoder();
+      
+        // READ PW
+        const pwCharacteristic = await apService.getCharacteristic(GPBLE_CONSTANTS.WIFI_AP_PASSWORD_CHARACTERISTIC);
+        const pwResult = await pwCharacteristic.readValue();
+      
+        // Indicate WIFI State
+        const apStateCharacteristic = await apService.getCharacteristic(GPBLE_CONSTANTS.WIFI_AP_STATE_CHARACTERISTIC);
+        await apStateCharacteristic.startNotifications();
+        apStateCharacteristic.addEventListener('characteristicvaluechanged', (event : any) => {
+          const data : DataView = event.target?.value;
+          const enumValue = data.getInt8(0);
+          console.log(enumValue);
+          this.setState({
+            wifiApActive: enumValue !== 0 ? true : false
+          })
+        });
+
+        const wifiAp = textDecoder.decode(apResult);
+        const wifiPw = textDecoder.decode(pwResult);
+
+        this.setState({
+          wifiAp,
+          wifiPw,
+        });
+      } else {
+        console.log("GATT Server is null");
+      }
       this.setState({
-        btConnected: false
+        btConnected: true,
+        connecting: false,
+        device
       })
-    });
   
-    try {      
-        const gattServer = device.gatt;
-        if (gattServer) {
-          const server = await gattServer.connect(); 
+      device.addEventListener('gattserverdisconnected', () => {
+        this.setState({
+          btConnected: false
+        })
+      });
 
-          const cqService = await server.getPrimaryService(GPBLE_CONSTANTS.CONTROL_QUERY_SERVICE);
-          const commandCharacteristic = await cqService.getCharacteristic(GPBLE_CONSTANTS.COMMAND);          
-          this.setState({
-            commandCharacteristic
-          });
-
-          // READ AP
-          const apService = await server.getPrimaryService(GPBLE_CONSTANTS.WIFI_AP_SERVICE);
-          const apCharacteristic = await apService.getCharacteristic(GPBLE_CONSTANTS.WIFI_AP_SSID_CHARACTERISTIC);
-          const apResult = await apCharacteristic.readValue();
-          
-          const textDecoder = new TextDecoder();
-        
-          // READ PW
-          const pwCharacteristic = await apService.getCharacteristic(GPBLE_CONSTANTS.WIFI_AP_PASSWORD_CHARACTERISTIC);
-          const pwResult = await pwCharacteristic.readValue();
-        
-          // Indicate WIFI State
-          const apStateCharacteristic = await apService.getCharacteristic(GPBLE_CONSTANTS.WIFI_AP_STATE_CHARACTERISTIC);
-          await apStateCharacteristic.startNotifications();
-          apStateCharacteristic.addEventListener('characteristicvaluechanged', (event : any) => {
-            const data : DataView = event.target?.value;
-            const enumValue = data.getInt8(0);
-            console.log(enumValue);
-            this.setState({
-              wifiApActive: enumValue !== 0 ? true : false
-            })
-          });
-
-          const wifiAp = textDecoder.decode(apResult);
-          const wifiPw = textDecoder.decode(pwResult);
-
-          this.setState({
-            wifiAp,
-            wifiPw,
-          });
-        } else {
-          console.log("GATT Server is null");
-        }
-    }  catch(error:any) {
-      console.error("Error: ", error);
+    } catch (ex : unknown) {
+      this.setState({
+        connecting: false,
+      });
     }
   }
 
@@ -129,7 +134,7 @@ class App extends Component<Props, State> {
           />
       )
     } else {
-      return <Greeter onConnect={this.connectBt} />;
+      return <Greeter onConnect={this.connectBt} connecting={this.state.connecting} />;
     }
   }
 }
