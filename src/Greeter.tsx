@@ -8,12 +8,14 @@ import Link from '@mui/material/Link';
 
 
 import { SiGithub } from '@icons-pack/react-simple-icons';
+import LinearProgress from '@mui/material/LinearProgress/LinearProgress';
 
 interface Props {
     onConnect: () => void;
+    connecting: boolean;
 }
 
-export default function Greeter({ onConnect } : Props) {
+export default function Greeter({ onConnect, connecting } : Props) {
     return (
 <Card>
 <CardHeader
@@ -31,6 +33,9 @@ export default function Greeter({ onConnect } : Props) {
 <CardActions>
     <Button variant="contained" onClick={onConnect} style={{margin: 'auto'}}>Connect to camera</Button>
 </CardActions>
+{ connecting &&
+  <LinearProgress />
+}
 </Card>
     )
 }
