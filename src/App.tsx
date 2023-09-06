@@ -134,7 +134,7 @@ class App extends Component<Props, State> {
           />
       )
     } else {
-      return <Greeter onConnect={this.connectBt} connecting={this.state.connecting} />;
+      return <Greeter onConnect={this.connectBt} connecting={this.state.connecting} bluetoothUnavailable={!navigator.bluetooth} />;
     }
   }
 }
