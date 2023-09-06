@@ -35,7 +35,7 @@ export default function Greeter({ onConnect, connecting, bluetoothUnavailable } 
 </CardContent>
 <CardActions>
    { bluetoothUnavailable ? 
-     <div className="error">Plattform does not support WebBluetooth. <Link href="">More</Link></div> :
+     <div className="error">Plattform does not support WebBluetooth. <Link href="https://github.com/axeljaeger/goprowifienabler/wiki/Platform-support">More</Link></div> :
      <Button variant="contained" onClick={onConnect} style={{margin: 'auto'}}>Connect to camera</Button>
    }     
 </CardActions>
