@@ -10,12 +10,15 @@ import Link from '@mui/material/Link';
 import { SiGithub } from '@icons-pack/react-simple-icons';
 import LinearProgress from '@mui/material/LinearProgress/LinearProgress';
 
+import './index.css';
+
 interface Props {
     onConnect: () => void;
     connecting: boolean;
+    bluetoothUnavailable: boolean;
 }
 
-export default function Greeter({ onConnect, connecting } : Props) {
+export default function Greeter({ onConnect, connecting, bluetoothUnavailable } : Props) {
     return (
 <Card>
 <CardHeader
@@ -31,7 +34,10 @@ export default function Greeter({ onConnect, connecting } : Props) {
     <p><Link href="https://gopro.github.io/OpenGoPro/ble_2_0">GoPro BLE API</Link></p>
 </CardContent>
 <CardActions>
-    <Button variant="contained" onClick={onConnect} style={{margin: 'auto'}}>Connect to camera</Button>
+   { bluetoothUnavailable ? 
+     <div className="error">Plattform does not support WebBluetooth. <Link href="https://github.com/axeljaeger/goprowifienabler/wiki/Platform-support">More</Link></div> :
+     <Button variant="contained" onClick={onConnect} style={{margin: 'auto'}}>Connect to camera</Button>
+   }     
 </CardActions>
 { connecting &&
   <LinearProgress />

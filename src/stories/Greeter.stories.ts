@@ -14,6 +14,14 @@ const meta: Meta<typeof Greeter> = {
 export default meta;
 type Story = StoryObj<typeof Greeter>;
 
-export const Primary: Story = {
+export const Idle: Story = {
   args: {},
+};
+
+export const Connecting: Story = {
+  args: { connecting: true },
+};
+
+export const BluetoothUnavailable: Story = {
+  args: { bluetoothUnavailable: true },
 };
