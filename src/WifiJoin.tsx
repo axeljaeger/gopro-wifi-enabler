@@ -41,7 +41,7 @@ const WifiJoin = ({ wifiAp, wifiPw }: Props) => {
   return (
     <>
       <TextField
-        label="Join using Commandline"
+        label="Join the camera's WiFi using the command line"
         variant="standard"
         multiline
         value={commandLineForPlattform(platform, wifiAp, wifiPw)}

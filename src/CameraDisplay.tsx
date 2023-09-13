@@ -15,7 +15,7 @@ import { ContentCopy } from "@mui/icons-material";
 import { styled } from "@mui/material/styles";
 import React from "react";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { Collapse } from "@mui/material";
+import { Collapse, Link, Typography } from "@mui/material";
 import QRCode from "react-qr-code";
 
 interface ExpandMoreProps extends IconButtonProps {
@@ -105,8 +105,13 @@ const CameraDisplay = ({
           fullWidth
         />
         <WifiJoin wifiAp={wifiAp} wifiPw={wifiPw} />
+        <Typography variant="body2" style={{marginTop: '16px'}}>
+          Your camera is accessable at:{" "}
+          <Link href="http://10.5.5.9:8080">10.5.5.9:8080</Link>. For example,
+          you can browse the{" "}
+          <Link href="http://10.5.5.9:8080/gopro/media/list">media</Link>.
+        </Typography>
       </CardContent>
-
       <CardActions disableSpacing>
         <Button type="button" onClick={onDisconnect} variant="outlined">
           Disconnect

@@ -6,7 +6,6 @@ import CardActions from '@mui/material/CardActions';
 import IconButton from '@mui/material/IconButton';
 import Link from '@mui/material/Link';
 
-
 import { SiGithub } from '@icons-pack/react-simple-icons';
 import LinearProgress from '@mui/material/LinearProgress/LinearProgress';
 
@@ -20,10 +19,10 @@ interface Props {
 
 export default function Greeter({ onConnect, connecting, bluetoothUnavailable } : Props) {
     return (
-<Card>
+<Card style={{maxWidth: '400px'}}>
 <CardHeader
         action={
-          <IconButton aria-label="settings" href="https://axeljaeger.github.io/goprowifienabler/">
+          <IconButton aria-label="settings" href="https://github.com/axeljaeger/goprowifienabler">
             <SiGithub />
           </IconButton>
         }
@@ -31,7 +30,8 @@ export default function Greeter({ onConnect, connecting, bluetoothUnavailable } 
         subheader="Not an offering from GoPro"
       />
 <CardContent>
-    <p><Link href="https://gopro.github.io/OpenGoPro/ble_2_0">GoPro BLE API</Link></p>
+    This application allows you to put your camera into WiFi Access Mode so that you can start working
+    with the <Link href="https://gopro.github.io/OpenGoPro/http_2_0">GoPro HTTP API</Link>. This is done by utilizing the <Link href="https://gopro.github.io/OpenGoPro/ble_2_0">GoPro Bluetooth API</Link>.
 </CardContent>
 <CardActions>
    { bluetoothUnavailable ? 
