@@ -1,20 +1,29 @@
-import type { StorybookConfig } from "@storybook/react-webpack5";
+import { mergeConfig } from 'vite';
 
-const config: StorybookConfig = {
-  stories: ["../src/**/*.mdx", "../src/**/*.stories.@(js|jsx|mjs|ts|tsx)"],
+export default {
+  stories: ['../src/stories/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
   addons: [
-    "@storybook/addon-links",
-    "@storybook/addon-essentials",
-    "@storybook/preset-create-react-app",
+    '@storybook/addon-links', 
+    '@storybook/addon-essentials', 
     "@storybook/addon-interactions",
-  ],
+],
+
+  async viteFinal(config) {
+    // Merge custom configuration into the default config
+    return mergeConfig(config, {
+      // Add dependencies to pre-optimization
+      optimizeDeps: {
+        include: [],
+      },
+    });
+  },
+
   framework: {
-    name: "@storybook/react-webpack5",
-    options: {},
+    name: '@storybook/react-vite',
+    options: {}
   },
+
   docs: {
-    autodocs: "tag",
-  },
-  staticDirs: ["../public"],
+    autodocs: false
+  }
 };
-export default config;
