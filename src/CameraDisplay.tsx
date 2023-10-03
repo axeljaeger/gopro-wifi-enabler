@@ -78,7 +78,7 @@ const CameraDisplay = ({
             readOnly: true,
             endAdornment: (
               <InputAdornment position="end">
-                <IconButton edge="end">
+                <IconButton edge="end" onClick={() => navigator.clipboard.writeText(wifiAp)}>
                   <ContentCopy />
                 </IconButton>
               </InputAdornment>
@@ -95,7 +95,7 @@ const CameraDisplay = ({
             readOnly: true,
             endAdornment: (
               <InputAdornment position="end">
-                <IconButton edge="end">
+                <IconButton edge="end" onClick={() => navigator.clipboard.writeText(wifiPw)}>
                   <ContentCopy />
                 </IconButton>
               </InputAdornment>

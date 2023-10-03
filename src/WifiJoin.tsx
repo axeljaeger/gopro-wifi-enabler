@@ -49,7 +49,7 @@ const WifiJoin = ({ wifiAp, wifiPw }: Props) => {
           readOnly: true,
           endAdornment: (
             <InputAdornment position="end">
-              <IconButton edge="end">
+              <IconButton edge="end" onClick={() => navigator.clipboard.writeText(commandLineForPlattform(platform, wifiAp, wifiPw))}>
                 <ContentCopy />
               </IconButton>
             </InputAdornment>
