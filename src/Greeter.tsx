@@ -22,7 +22,7 @@ export default function Greeter({ onConnect, connecting, bluetoothUnavailable } 
 <Card style={{maxWidth: '400px'}}>
 <CardHeader
         action={
-          <IconButton aria-label="settings" href="https://github.com/axeljaeger/gopro-wifienabler">
+          <IconButton aria-label="settings" href="https://github.com/axeljaeger/gopro-wifi-enabler">
             <SiGithub />
           </IconButton>
         }
@@ -35,7 +35,7 @@ export default function Greeter({ onConnect, connecting, bluetoothUnavailable } 
 </CardContent>
 <CardActions>
    { bluetoothUnavailable ? 
-     <div className="error">Plattform does not support WebBluetooth. <Link href="https://github.com/axeljaeger/gopro-wifienabler/wiki/Platform-support">More</Link></div> :
+     <div className="error">Plattform does not support WebBluetooth. <Link href="https://github.com/axeljaeger/gopro-wifi-enabler/wiki/Platform-support">More</Link></div> :
      <Button variant="contained" onClick={onConnect} style={{margin: 'auto'}}>Connect to camera</Button>
    }     
 </CardActions>
