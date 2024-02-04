@@ -1,5 +1,5 @@
 {
-  "name": "goprowifienabler",
+  "name": "gopro-wifienabler",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -68,5 +68,5 @@
     "webpack": "^5.88.2"
   },
   "readme": "ERROR: No README data found!",
-  "_id": "goprowifienabler@0.1.0"
+  "_id": "gopro-wifienabler@0.1.0"
 }
