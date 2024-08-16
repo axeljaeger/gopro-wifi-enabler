@@ -1,11 +1,11 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import Greeter from '../Greeter';
+import type { Meta, StoryObj } from "@storybook/react";
+import Greeter from "../Greeter";
 
 const meta: Meta<typeof Greeter> = {
-  title: 'Greeter',
+  title: "Greeter",
   component: Greeter,
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
   tags: [],
   argTypes: {},
