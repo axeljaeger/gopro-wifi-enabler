@@ -14,6 +14,7 @@ updates:
         patterns:
             - "storybook"
             - "@storybook/*"
+            - "chromatic"
       mui:
         patterns:
             - "@mui/*"
