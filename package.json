@@ -19,7 +19,7 @@
     "@types/web-bluetooth": "^0.0.20",
     "react": "^18.3.0",
     "react-dom": "^18.3.1",
-    "react-qr-code": "^2.0.12",
+    "react-qr-code": "^2.0.15",
     "typescript": "^5.2.2",
     "web-vitals": "^3.5.2"
   },
