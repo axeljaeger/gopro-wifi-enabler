@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.11.4",
-    "@emotion/styled": "^11.11.0",
+    "@emotion/styled": "^11.13.0",
     "@fontsource/roboto": "^5.0.14",
     "@icons-pack/react-simple-icons": "^9.2.0",
     "@mui/icons-material": "^5.16.7",
