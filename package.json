@@ -61,7 +61,7 @@
     "@storybook/test": "^8.2.9",
     "@vitejs/plugin-react": "^4.2.1",
     "babel-plugin-named-exports-order": "^0.0.2",
-    "chromatic": "^11.9.0",
+    "chromatic": "^11.10.1",
     "eslint-plugin-storybook": "^0.8.0",
     "prop-types": "^15.8.1",
     "storybook": "^8.2.9",
