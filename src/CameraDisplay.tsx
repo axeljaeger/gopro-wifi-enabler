@@ -1,22 +1,22 @@
-import WifiJoin from "./WifiJoin";
-import FormGroup from "@mui/material/FormGroup/FormGroup";
-import FormControlLabel from "@mui/material/FormControlLabel/FormControlLabel";
-import Switch from "@mui/material/Switch/Switch";
-import Card from "@mui/material/Card/Card";
-import CardContent from "@mui/material/CardContent/CardContent";
-import TextField from "@mui/material/TextField/TextField";
-import CardActions from "@mui/material/CardActions/CardActions";
-import Button from "@mui/material/Button/Button";
-import InputAdornment from "@mui/material/InputAdornment/InputAdornment";
+import { ContentCopy } from '@mui/icons-material';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { Collapse, Link, Typography } from '@mui/material';
+import Button from '@mui/material/Button/Button';
+import Card from '@mui/material/Card/Card';
+import CardActions from '@mui/material/CardActions/CardActions';
+import CardContent from '@mui/material/CardContent/CardContent';
+import FormControlLabel from '@mui/material/FormControlLabel/FormControlLabel';
+import FormGroup from '@mui/material/FormGroup/FormGroup';
 import IconButton, {
-  IconButtonProps,
-} from "@mui/material/IconButton/IconButton";
-import { ContentCopy } from "@mui/icons-material";
-import { styled } from "@mui/material/styles";
-import React from "react";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { Collapse, Link, Typography } from "@mui/material";
-import QRCode from "react-qr-code";
+  type IconButtonProps,
+} from '@mui/material/IconButton/IconButton';
+import InputAdornment from '@mui/material/InputAdornment/InputAdornment';
+import Switch from '@mui/material/Switch/Switch';
+import TextField from '@mui/material/TextField/TextField';
+import { styled } from '@mui/material/styles';
+import React from 'react';
+import QRCode from 'react-qr-code';
+import WifiJoin from './WifiJoin';
 
 interface ExpandMoreProps extends IconButtonProps {
   expand: boolean;
@@ -26,9 +26,9 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
   const { expand, ...other } = props;
   return <IconButton {...other} />;
 })(({ theme, expand }) => ({
-  transform: !expand ? "rotate(0deg)" : "rotate(180deg)",
-  marginLeft: "auto",
-  transition: theme.transitions.create("transform", {
+  transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
+  marginLeft: 'auto',
+  transition: theme.transitions.create('transform', {
     duration: theme.transitions.duration.shortest,
   }),
 }));
@@ -78,7 +78,10 @@ const CameraDisplay = ({
             readOnly: true,
             endAdornment: (
               <InputAdornment position="end">
-                <IconButton edge="end" onClick={() => navigator.clipboard.writeText(wifiAp)}>
+                <IconButton
+                  edge="end"
+                  onClick={() => navigator.clipboard.writeText(wifiAp)}
+                >
                   <ContentCopy />
                 </IconButton>
               </InputAdornment>
@@ -95,7 +98,10 @@ const CameraDisplay = ({
             readOnly: true,
             endAdornment: (
               <InputAdornment position="end">
-                <IconButton edge="end" onClick={() => navigator.clipboard.writeText(wifiPw)}>
+                <IconButton
+                  edge="end"
+                  onClick={() => navigator.clipboard.writeText(wifiPw)}
+                >
                   <ContentCopy />
                 </IconButton>
               </InputAdornment>
@@ -105,10 +111,10 @@ const CameraDisplay = ({
           fullWidth
         />
         <WifiJoin wifiAp={wifiAp} wifiPw={wifiPw} />
-        <Typography variant="body2" style={{marginTop: '16px'}}>
-          Your camera is accessable at:{" "}
+        <Typography variant="body2" style={{ marginTop: '16px' }}>
+          Your camera is accessable at:{' '}
           <Link href="http://10.5.5.9:8080">10.5.5.9:8080</Link>. For example,
-          you can browse the{" "}
+          you can browse the{' '}
           <Link href="http://10.5.5.9:8080/gopro/media/list">media</Link>.
         </Typography>
       </CardContent>
@@ -128,7 +134,7 @@ const CameraDisplay = ({
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <QRCode
           value={`WIFI:T:WPA;S:${wifiAp};P:${wifiPw};;`}
-          style={{ margin: "20px" }}
+          style={{ margin: '20px' }}
         />
       </Collapse>
     </Card>
