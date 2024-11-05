@@ -6,8 +6,8 @@ export default {
   addons: [
     '@storybook/addon-links',
     '@storybook/addon-essentials',
-    "@storybook/addon-interactions",
-    '@chromatic-com/storybook'
+    '@storybook/addon-interactions',
+    '@chromatic-com/storybook',
   ],
 
   async viteFinal(config) {
@@ -22,12 +22,12 @@ export default {
 
   framework: {
     name: '@storybook/react-vite',
-    options: {}
+    options: {},
   },
 
   docs: {},
 
   typescript: {
-    reactDocgen: 'react-docgen-typescript'
-  }
+    reactDocgen: 'react-docgen-typescript',
+  },
 };

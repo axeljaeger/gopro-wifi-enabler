@@ -1,11 +1,11 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import CameraDisplay from "../CameraDisplay";
+import type { Meta, StoryObj } from '@storybook/react';
+import CameraDisplay from '../CameraDisplay';
 
 const meta: Meta<typeof CameraDisplay> = {
-  title: "CameraDisplay",
+  title: 'CameraDisplay',
   component: CameraDisplay,
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
   tags: [],
   argTypes: {},
