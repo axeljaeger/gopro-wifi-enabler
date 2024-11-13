@@ -9,7 +9,7 @@
     "@icons-pack/react-simple-icons": "^9.6.0",
     "@mui/icons-material": "^6.1.6",
     "@mui/material": "^6.0.0",
-    "@testing-library/jest-dom": "^6.5.0",
+    "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.0.1",
     "@testing-library/user-event": "^14.5.2",
     "@types/jest": "^29.5.12",
