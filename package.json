@@ -52,7 +52,7 @@
     "@storybook/test": "^8.4.1",
     "@vitejs/plugin-react": "^4.3.3",
     "babel-plugin-named-exports-order": "^0.0.2",
-    "chromatic": "^11.20.2",
+    "chromatic": "^11.24.0",
     "eslint-plugin-storybook": "^0.11.0",
     "prop-types": "^15.8.1",
     "storybook": "^8.4.1",
