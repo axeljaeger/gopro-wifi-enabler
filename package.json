@@ -6,7 +6,7 @@
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.13.0",
     "@fontsource/roboto": "^5.1.0",
-    "@icons-pack/react-simple-icons": "^9.6.0",
+    "@icons-pack/react-simple-icons": "9.6.0",
     "@mui/icons-material": "^6.4.1",
     "@mui/material": "^6.0.0",
     "@testing-library/jest-dom": "^6.6.3",
@@ -15,10 +15,10 @@
     "@types/jest": "^29.5.14",
     "@types/node": "^22.10.9",
     "@types/react": "^19.0.8",
-    "@types/react-dom": "^18.3.1",
+    "@types/react-dom": "^19.0.0",
     "@types/web-bluetooth": "^0.0.20",
     "react": "^19.0.0",
-    "react-dom": "^18.3.1",
+    "react-dom": "^19.0.0",
     "react-qr-code": "^2.0.15",
     "typescript": "^5.6.3",
     "web-vitals": "^4.2.4"
@@ -34,7 +34,11 @@
     "biome:write": "npx @biomejs/biome check --write"
   },
   "browserslist": {
-    "production": [">0.2%", "not dead", "not op_mini all"],
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
     "development": [
       "last 1 chrome version",
       "last 1 firefox version",
@@ -44,18 +48,18 @@
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
     "@chromatic-com/storybook": "^3.2.3",
-    "@storybook/addon-essentials": "^8.4.7",
-    "@storybook/addon-interactions": "^8.4.7",
-    "@storybook/addon-links": "^8.4.7",
-    "@storybook/blocks": "^8.4.1",
-    "@storybook/react-vite": "^8.4.7",
-    "@storybook/test": "^8.4.1",
+    "@storybook/addon-essentials": "^8.5.1",
+    "@storybook/addon-interactions": "^8.5.1",
+    "@storybook/addon-links": "^8.5.1",
+    "@storybook/blocks": "^8.5.1",
+    "@storybook/react-vite": "^8.5.1",
+    "@storybook/test": "^8.5.1",
     "@vitejs/plugin-react": "^4.3.4",
     "babel-plugin-named-exports-order": "^0.0.2",
     "chromatic": "^11.20.2",
     "eslint-plugin-storybook": "^0.11.0",
     "prop-types": "^15.8.1",
-    "storybook": "^8.4.1",
+    "storybook": "^8.5.1",
     "vite": "^6.0.5"
   },
   "readme": "ERROR: No README data found!",

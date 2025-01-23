@@ -1,4 +1,4 @@
-# .github/workflows/chromatic.yml
+# .github/workflows/biome.yml
 name: 'Biome'
 
 # Event for the workflow
@@ -6,7 +6,7 @@ on: push
 
 # List of jobs
 jobs:
-  chromatic-deployment:
+  biome:
     # Operating System
     runs-on: ubuntu-latest
     # Job steps
@@ -19,6 +19,6 @@ jobs:
             node-version: 22
             cache: 'npm'
       - name: Install dependencies
-        run: npm ci
+        run: npm ci --legacy-peer-deps
       - name: Run Biome
         run: npm run biome:check
