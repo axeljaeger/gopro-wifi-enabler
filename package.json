@@ -54,7 +54,7 @@
     "@storybook/blocks": "^8.5.1",
     "@storybook/react-vite": "^8.6.4",
     "@storybook/test": "^8.5.1",
-    "@vitejs/plugin-react": "^4.3.4",
+    "@vitejs/plugin-react": "^4.5.2",
     "babel-plugin-named-exports-order": "^0.0.2",
     "chromatic": "^11.27.0",
     "eslint-plugin-storybook": "^0.11.0",
