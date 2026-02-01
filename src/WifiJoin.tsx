@@ -1,18 +1,17 @@
 import { useState } from 'react';
 
 import './App.css';
-import { SiApple, SiLinux, SiWindows } from '@icons-pack/react-simple-icons';
+import { SiApple, SiLinux } from '@icons-pack/react-simple-icons';
 import { ContentCopy } from '@mui/icons-material';
-import IconButton from '@mui/material/IconButton/IconButton';
-import InputAdornment from '@mui/material/InputAdornment/InputAdornment';
-import TextField from '@mui/material/TextField/TextField';
-import ToggleButton from '@mui/material/ToggleButton/ToggleButton';
-import ToggleButtonGroup from '@mui/material/ToggleButtonGroup/ToggleButtonGroup';
+import IconButton from '@mui/material/IconButton';
+import InputAdornment from '@mui/material/InputAdornment';
+import TextField from '@mui/material/TextField';
+import ToggleButton from '@mui/material/ToggleButton';
+import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 
 enum Platform {
   Linux = 'linux',
   Mac = 'mac',
-  Windows = 'windows',
 }
 
 interface Props {
@@ -30,8 +29,6 @@ const commandLineForPlattform = (
       return 'Not implemented';
     case Platform.Mac:
       return `/usr/sbin/networksetup -setairportnetwork ${wifiAp} ${wifiPw}`;
-    case Platform.Windows:
-      return `netsh wlan connect ssid=${wifiAp} name=gopro`;
   }
 };
 
@@ -80,10 +77,6 @@ const WifiJoin = ({ wifiAp, wifiPw }: Props) => {
         <ToggleButton value={Platform.Mac}>
           <SiApple size={16} style={{ marginRight: '8px' }} />
           Mac
-        </ToggleButton>
-        <ToggleButton value={Platform.Windows}>
-          <SiWindows size={16} style={{ marginRight: '8px' }} />
-          Windows
         </ToggleButton>
       </ToggleButtonGroup>
     </>

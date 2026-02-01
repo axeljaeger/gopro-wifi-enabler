@@ -1,13 +1,12 @@
+import { SiGithub } from '@icons-pack/react-simple-icons';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardHeader from '@mui/material/CardHeader';
 import IconButton from '@mui/material/IconButton';
+import LinearProgress from '@mui/material/LinearProgress';
 import Link from '@mui/material/Link';
-
-import { SiGithub } from '@icons-pack/react-simple-icons';
-import LinearProgress from '@mui/material/LinearProgress/LinearProgress';
 
 import './index.css';
 
