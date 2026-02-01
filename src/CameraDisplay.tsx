@@ -1,19 +1,17 @@
 import { ContentCopy } from '@mui/icons-material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Collapse, Link, Typography } from '@mui/material';
-import Button from '@mui/material/Button/Button';
-import Card from '@mui/material/Card/Card';
-import CardActions from '@mui/material/CardActions/CardActions';
-import CardContent from '@mui/material/CardContent/CardContent';
-import FormControlLabel from '@mui/material/FormControlLabel/FormControlLabel';
-import FormGroup from '@mui/material/FormGroup/FormGroup';
-import IconButton, {
-  type IconButtonProps,
-} from '@mui/material/IconButton/IconButton';
-import InputAdornment from '@mui/material/InputAdornment/InputAdornment';
-import Switch from '@mui/material/Switch/Switch';
-import TextField from '@mui/material/TextField/TextField';
+import Button from '@mui/material/Button';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormGroup from '@mui/material/FormGroup';
+import IconButton, { type IconButtonProps } from '@mui/material/IconButton';
+import InputAdornment from '@mui/material/InputAdornment';
+import Switch from '@mui/material/Switch';
 import { styled } from '@mui/material/styles';
+import TextField from '@mui/material/TextField';
 import React from 'react';
 import QRCode from 'react-qr-code';
 import WifiJoin from './WifiJoin';

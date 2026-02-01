@@ -8,7 +8,9 @@ updates:
   - package-ecosystem: "npm" # See documentation for possible values
     directory: "/" # Location of package manifests
     schedule:
-      interval: "daily"
+      interval: "weekly"
+      day: "tuesday"
+      time: "03:00"
     groups:
       storybook:
         patterns:
@@ -21,3 +23,15 @@ updates:
       testing-library:
         patterns:
             - "@testing-library/*"
+      react:
+        patterns:
+            - "react"
+            - "react-dom"
+            - "@types/react"
+            - "@types/react-dom"
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "tuesday"
+      time: "03:00"
