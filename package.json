@@ -41,9 +41,9 @@
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
     "@chromatic-com/storybook": "^5.0.0",
-    "@storybook/addon-docs": "^10.2.4",
-    "@storybook/addon-links": "^10.2.4",
-    "@storybook/react-vite": "^10.2.4",
+    "@storybook/addon-docs": "^10.2.8",
+    "@storybook/addon-links": "^10.2.8",
+    "@storybook/react-vite": "^10.2.8",
     "@types/node": "^25.2.0",
     "@types/react": "^19.2.10",
     "@types/react-dom": "^19.2.3",
