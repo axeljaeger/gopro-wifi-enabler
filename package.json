@@ -39,7 +39,7 @@
     ]
   },
   "devDependencies": {
-    "@biomejs/biome": "2.4.2",
+    "@biomejs/biome": "2.4.9",
     "@chromatic-com/storybook": "^5.1.1",
     "@storybook/addon-docs": "^10.2.19",
     "@storybook/addon-links": "^10.2.19",
