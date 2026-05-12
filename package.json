@@ -7,7 +7,7 @@
     "@emotion/styled": "^11.14.1",
     "@fontsource/roboto": "^5.2.10",
     "@icons-pack/react-simple-icons": "^13.13.0",
-    "@mui/icons-material": "^9.0.0",
+    "@mui/icons-material": "^9.0.1",
     "@mui/material": "^9.0.0",
     "@types/web-bluetooth": "^0.0.21",
     "react": "^19.2.5",
