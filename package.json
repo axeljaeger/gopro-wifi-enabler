@@ -53,7 +53,7 @@
     "chromatic": "^16.10.1",
     "prop-types": "^15.8.1",
     "storybook": "^10.2.3",
-    "vite": "8.0.10"
+    "vite": "8.0.14"
   },
   "readme": "ERROR: No README data found!",
   "_id": "gopro-wifi-enabler@0.1.0"
