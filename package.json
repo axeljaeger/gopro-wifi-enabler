@@ -10,11 +10,11 @@
     "@mui/icons-material": "^9.0.1",
     "@mui/material": "^9.0.0",
     "@types/web-bluetooth": "^0.0.21",
-    "react": "^19.2.5",
-    "react-dom": "^19.2.5",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6",
     "react-qr-code": "^2.0.18",
     "typescript": "^6.0.3",
-    "web-vitals": "^5.1.0"
+    "web-vitals": "^5.2.0"
   },
   "scripts": {
     "start": "vite",
@@ -42,15 +42,15 @@
   "devDependencies": {
     "@biomejs/biome": "2.4.14",
     "@chromatic-com/storybook": "^5.1.1",
-    "@storybook/addon-docs": "^10.3.6",
-    "@storybook/addon-links": "^10.3.6",
-    "@storybook/react-vite": "^10.3.6",
+    "@storybook/addon-docs": "^10.4.0",
+    "@storybook/addon-links": "^10.4.0",
+    "@storybook/react-vite": "^10.4.0",
     "@types/node": "^25.5.0",
-    "@types/react": "^19.2.14",
+    "@types/react": "^19.2.15",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.0.1",
     "babel-plugin-named-exports-order": "^0.0.2",
-    "chromatic": "^16.7.0",
+    "chromatic": "^16.10.1",
     "prop-types": "^15.8.1",
     "storybook": "^10.2.3",
     "vite": "8.0.10"
