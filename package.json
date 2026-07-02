@@ -48,7 +48,7 @@
     "@types/node": "^26.0.1",
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
-    "@vitejs/plugin-react": "^6.0.1",
+    "@vitejs/plugin-react": "^6.0.3",
     "babel-plugin-named-exports-order": "^0.0.2",
     "chromatic": "^17.8.0",
     "prop-types": "^15.8.1",
