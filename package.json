@@ -50,7 +50,7 @@
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.0.3",
     "babel-plugin-named-exports-order": "^0.0.2",
-    "chromatic": "^17.8.0",
+    "chromatic": "^18.0.1",
     "prop-types": "^15.8.1",
     "storybook": "^10.2.3",
     "vite": "8.1.0"
