@@ -1,4 +1,5 @@
 import { SiGithub } from '@icons-pack/react-simple-icons';
+import Alert from '@mui/material/Alert';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -13,12 +14,14 @@ import './index.css';
 interface Props {
   onConnect: () => void;
   connecting: boolean;
+  connectionError: string;
   bluetoothUnavailable: boolean;
 }
 
 export default function Greeter({
   onConnect,
   connecting,
+  connectionError,
   bluetoothUnavailable,
 }: Props) {
   return (
@@ -65,6 +68,11 @@ export default function Greeter({
           </Button>
         )}
       </CardActions>
+      {connectionError && (
+        <Alert severity="error" sx={{ margin: 2 }}>
+          {connectionError}
+        </Alert>
+      )}
       {connecting && <LinearProgress />}
     </Card>
   );

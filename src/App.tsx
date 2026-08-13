@@ -5,12 +5,10 @@ import './App.css';
 import CameraDisplay from './CameraDisplay';
 import Greeter from './Greeter';
 
-// biome-ignore lint/complexity/noBannedTypes: <explanation>
-type Props = {};
-
 interface State {
   connecting: boolean;
   btConnected: boolean;
+  connectionError: string;
   wifiApActive: boolean;
   wifiAp: string;
   wifiPw: string;
@@ -18,13 +16,34 @@ interface State {
   commandCharacteristic: BluetoothRemoteGATTCharacteristic | null;
 }
 
-class App extends Component<Props, State> {
-  constructor(props: Props) {
+function getBluetoothErrorMessage(error: unknown): string {
+  if (error instanceof DOMException) {
+    if (error.name === 'NotFoundError') {
+      return 'No camera was selected. Put the GoPro into pairing mode and try again.';
+    }
+
+    if (error.name === 'NetworkError' || error.name === 'SecurityError') {
+      return "Bluetooth pairing failed. If the camera was reset, remove/forget the GoPro in your computer's Bluetooth settings, put the camera into pairing mode, and try again.";
+    }
+
+    return `${error.name}: ${error.message}`;
+  }
+
+  if (error instanceof Error) {
+    return error.message;
+  }
+
+  return 'Could not connect to the camera. Put it into pairing mode and try again.';
+}
+
+class App extends Component<Record<string, never>, State> {
+  constructor(props: Record<string, never>) {
     super(props);
 
     this.state = {
       connecting: false,
       btConnected: false,
+      connectionError: '',
       wifiApActive: false,
       wifiAp: '',
       wifiPw: '',
@@ -34,16 +53,14 @@ class App extends Component<Props, State> {
   }
 
   connectBt = async () => {
-    this.setState({ connecting: true });
+    this.setState({ connecting: true, connectionError: '' });
+    let device: BluetoothDevice | null = null;
+
     try {
-      const device: BluetoothDevice = await navigator.bluetooth.requestDevice({
+      device = await navigator.bluetooth.requestDevice({
         filters: [
           {
-            manufacturerData: [
-              {
-                companyIdentifier: GPBLE_CONSTANTS.COMPANY_IDENTIFIER,
-              },
-            ],
+            services: [GPBLE_CONSTANTS.CONTROL_QUERY_SERVICE],
           },
         ],
         optionalServices: [
@@ -53,67 +70,69 @@ class App extends Component<Props, State> {
         ],
       });
       const gattServer = device.gatt;
-      if (gattServer) {
-        const server = await gattServer.connect();
-
-        const cqService = await server.getPrimaryService(
-          GPBLE_CONSTANTS.CONTROL_QUERY_SERVICE,
+      if (!gattServer) {
+        throw new Error(
+          'The selected device does not expose a Bluetooth GATT server.',
         );
-        const commandCharacteristic = await cqService.getCharacteristic(
-          GPBLE_CONSTANTS.COMMAND,
-        );
-        this.setState({
-          commandCharacteristic,
-        });
-
-        // READ AP
-        const apService = await server.getPrimaryService(
-          GPBLE_CONSTANTS.WIFI_AP_SERVICE,
-        );
-        const apCharacteristic = await apService.getCharacteristic(
-          GPBLE_CONSTANTS.WIFI_AP_SSID_CHARACTERISTIC,
-        );
-        const apResult = await apCharacteristic.readValue();
-
-        const textDecoder = new TextDecoder();
-
-        // READ PW
-        const pwCharacteristic = await apService.getCharacteristic(
-          GPBLE_CONSTANTS.WIFI_AP_PASSWORD_CHARACTERISTIC,
-        );
-        const pwResult = await pwCharacteristic.readValue();
-
-        // Indicate WIFI State
-        const apStateCharacteristic = await apService.getCharacteristic(
-          GPBLE_CONSTANTS.WIFI_AP_STATE_CHARACTERISTIC,
-        );
-        await apStateCharacteristic.startNotifications();
-        apStateCharacteristic.addEventListener(
-          'characteristicvaluechanged',
-          (event: Event) => {
-            const data: DataView | undefined = (
-              event.target as BluetoothRemoteGATTCharacteristic
-            ).value;
-            if (data) {
-              const enumValue = data.getInt8(0);
-              console.log(enumValue);
-              this.setState({
-                wifiApActive: enumValue !== 0,
-              });
-            }
-          },
-        );
-
-        const wifiAp = textDecoder.decode(apResult);
-        const wifiPw = textDecoder.decode(pwResult);
-
-        this.setState({
-          wifiAp,
-          wifiPw,
-        });
-      } else {
-        console.log('GATT Server is null');
       }
+
+      const server = await gattServer.connect();
+
+      const cqService = await server.getPrimaryService(
+        GPBLE_CONSTANTS.CONTROL_QUERY_SERVICE,
+      );
+      const commandCharacteristic = await cqService.getCharacteristic(
+        GPBLE_CONSTANTS.COMMAND,
+      );
+      this.setState({
+        commandCharacteristic,
+      });
+
+      // READ AP
+      const apService = await server.getPrimaryService(
+        GPBLE_CONSTANTS.WIFI_AP_SERVICE,
+      );
+      const apCharacteristic = await apService.getCharacteristic(
+        GPBLE_CONSTANTS.WIFI_AP_SSID_CHARACTERISTIC,
+      );
+      const apResult = await apCharacteristic.readValue();
+
+      const textDecoder = new TextDecoder();
+
+      // READ PW
+      const pwCharacteristic = await apService.getCharacteristic(
+        GPBLE_CONSTANTS.WIFI_AP_PASSWORD_CHARACTERISTIC,
+      );
+      const pwResult = await pwCharacteristic.readValue();
+
+      // Indicate WIFI State
+      const apStateCharacteristic = await apService.getCharacteristic(
+        GPBLE_CONSTANTS.WIFI_AP_STATE_CHARACTERISTIC,
+      );
+      await apStateCharacteristic.startNotifications();
+      apStateCharacteristic.addEventListener(
+        'characteristicvaluechanged',
+        (event: Event) => {
+          const data: DataView | undefined = (
+            event.target as BluetoothRemoteGATTCharacteristic
+          ).value;
+          if (data) {
+            const enumValue = data.getInt8(0);
+            console.log(enumValue);
+            this.setState({
+              wifiApActive: enumValue !== 0,
+            });
+          }
+        },
+      );
+
+      const wifiAp = textDecoder.decode(apResult);
+      const wifiPw = textDecoder.decode(pwResult);
+
+      this.setState({
+        wifiAp,
+        wifiPw,
+      });
       this.setState({
         btConnected: true,
         connecting: false,
@@ -125,9 +144,11 @@ class App extends Component<Props, State> {
           btConnected: false,
         });
       });
-    } catch (ex: unknown) {
+    } catch (error: unknown) {
+      device?.gatt?.disconnect();
       this.setState({
         connecting: false,
+        connectionError: getBluetoothErrorMessage(error),
       });
     }
   };
@@ -163,6 +184,7 @@ class App extends Component<Props, State> {
       <Greeter
         onConnect={this.connectBt}
         connecting={this.state.connecting}
+        connectionError={this.state.connectionError}
         bluetoothUnavailable={!navigator.bluetooth}
       />
     );
