@@ -10,3 +10,9 @@ In order to start developing applications against the [GoPro HTTP API](https://g
 
 ## Plattform Support ##
 This application was successfully tested on Mac using Chrome. It will not work in Safari or Firefox due to the missing WebBluetooth API. Chrome on Windows was so far not successfull.
+
+## Bluetooth troubleshooting
+
+The camera must be in pairing mode before connecting (on most models: **Connections → Connect Device → GoPro Quik App**).
+
+After a camera factory reset, also remove/forget the GoPro from the computer's Bluetooth settings before connecting again. The reset removes the camera's Bluetooth pairing keys, while the computer may still retain its old keys; the camera can then appear in the browser's device picker but the connection will fail.
