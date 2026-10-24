@@ -15,7 +15,7 @@
     "react-dom": "^19.3.0",
     "react-qr-code": "^2.2.0",
     "typescript": "^7.0.2",
-    "web-vitals": "^6.2.2"
+    "web-vitals": "^6.2.3"
   },
   "scripts": {
     "start": "vite",
