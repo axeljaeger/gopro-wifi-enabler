@@ -42,7 +42,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "2.6.2",
-    "@chromatic-com/storybook": "^5.3.1",
+    "@chromatic-com/storybook": "^5.6.0",
     "@storybook/addon-docs": "^10.6.1",
     "@storybook/addon-links": "^10.6.1",
     "@storybook/react-vite": "^10.6.1",
