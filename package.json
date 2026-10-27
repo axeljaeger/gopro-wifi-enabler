@@ -11,8 +11,8 @@
     "@mui/icons-material": "^9.5.0",
     "@mui/material": "^9.1.2",
     "@types/web-bluetooth": "^0.0.21",
-    "react": "^19.3.0",
-    "react-dom": "^19.3.0",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
     "react-qr-code": "^2.2.0",
     "typescript": "^7.0.2",
     "web-vitals": "^6.2.3"
